@@ -18,7 +18,7 @@ _For more information about commands, use ?help_
 
 ## Requirements
 
-No specific permissions needed.
+No specific permissions needed, except send private messages.
 
 ## Hosting
 
