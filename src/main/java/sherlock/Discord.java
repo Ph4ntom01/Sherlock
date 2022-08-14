@@ -15,7 +15,6 @@ import commands.Start;
 import commands.Status;
 import commands.Stop;
 import commands.Update;
-import configuration.constant.EID;
 import configuration.file.ConfigFactory;
 import configuration.file.TOMLConfig;
 import net.dv8tion.jda.api.JDABuilder;
@@ -27,8 +26,8 @@ public class Discord {
 
     private final TOMLConfig file;
 
-    public Discord() {
-        file = ConfigFactory.getSherlock();
+    public Discord(String path) {
+        file = ConfigFactory.getSherlock(path);
     }
 
     protected void connect() {
@@ -41,17 +40,17 @@ public class Discord {
 
         client.useDefaultGame();
 
-        client.setOwnerId(EID.OWNER_ID.getId());
+        client.setOwnerId(file.getString("owner.id"));
 
         client.setEmojis("\uD83D\uDE03", "\uD83D\uDE2E", "\uD83D\uDE26");
 
-        client.setPrefix("?");
+        client.setPrefix(file.getString("bot.prefix"));
 
         // Adds commands.
-        client.addCommands(new Start(), new Stop(), new ListPlayers(file), new Backup(), new ChkUpdate(file), new Update(), new Status(file));
+        client.addCommands(new Start(file), new Stop(file), new ListPlayers(file), new Backup(file), new ChkUpdate(file), new Update(file), new Status(file));
 
         try {
-            JDABuilder.createDefault(file.getString("token.discord")).enableIntents(GatewayIntent.GUILD_MEMBERS).addEventListeners(waiter, client.build()).build();
+            JDABuilder.createDefault(file.getString("bot.token")).enableIntents(GatewayIntent.GUILD_MEMBERS).addEventListeners(waiter, client.build()).build();
         } catch (LoginException e) {
             LOG.error(e.getMessage());
         }
