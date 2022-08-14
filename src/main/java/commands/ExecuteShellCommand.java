@@ -11,7 +11,8 @@ public class ExecuteShellCommand {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExecuteShellCommand.class);
 
-    protected ExecuteShellCommand() {}
+    protected ExecuteShellCommand() {
+    }
 
     protected void executeSimpleProcess(String command) {
         try {

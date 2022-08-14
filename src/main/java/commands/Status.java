@@ -7,8 +7,6 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jdautilities.doc.standard.CommandInfo;
 import com.jagrosh.jdautilities.examples.doc.Author;
 
-import configuration.constant.EFolder;
-import configuration.constant.EName;
 import configuration.file.TOMLConfig;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
@@ -37,7 +35,7 @@ public class Status extends Command {
 
     private void status(Message message) {
         ExecuteShellCommand cmd = new ExecuteShellCommand();
-        String state = cmd.executeProcess(EFolder.SCRIPT_SHERLOCK.getPath() + EName.SHERLOCK_SH.getName());
+        String state = cmd.executeProcess(file.getString("directory.sherlock_script"));
         if (!state.contains("not running")) {
             message.editMessage("```" + file.getString("markdown.yaml") + "\n" + state + "```").queueAfter(800, TimeUnit.MILLISECONDS);
         } else {

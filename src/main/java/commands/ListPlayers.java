@@ -7,8 +7,6 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import com.jagrosh.jdautilities.doc.standard.CommandInfo;
 import com.jagrosh.jdautilities.examples.doc.Author;
 
-import configuration.constant.EFolder;
-import configuration.constant.EName;
 import configuration.file.TOMLConfig;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
@@ -37,7 +35,7 @@ public class ListPlayers extends Command {
 
     private void listPlayers(Message message) {
         ExecuteShellCommand cmd = new ExecuteShellCommand();
-        String state = cmd.executeProcess(EFolder.SCRIPT_SHERLOCK.getPath() + EName.SHERLOCK_SH.getName() + " listPlayers");
+        String state = cmd.executeProcess(file.getString("directory.sherlock_script") + " listPlayers");
         if (!state.contains("not running") && !state.contains("empty")) {
             message.editMessage("```" + file.getString("markdown.c") + "\n" + state + "```").queueAfter(800, TimeUnit.MILLISECONDS);
         } else {
@@ -46,11 +44,11 @@ public class ListPlayers extends Command {
     }
 
     /*private void deleteHistory(CommandEvent event) {
-        List<Message> messages = event.getAuthor().openPrivateChannel().complete().getIterableHistory().complete();
-        for (int i = 1; i < messages.size(); i++) {
-            String id = messages.get(i).getId();
-            event.getAuthor().openPrivateChannel().flatMap(channel -> channel.deleteMessageById(id)).queueAfter(2, TimeUnit.SECONDS);
-        }
+    List<Message> messages = event.getAuthor().openPrivateChannel().complete().getIterableHistory().complete();
+    for (int i = 1; i < messages.size(); i++) {
+        String id = messages.get(i).getId();
+        event.getAuthor().openPrivateChannel().flatMap(channel -> channel.deleteMessageById(id)).queueAfter(2, TimeUnit.SECONDS);
+    }
     }*/
 
 }
