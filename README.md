@@ -22,4 +22,4 @@ No specific permissions needed, except send private messages.
 
 ## Hosting
 
-This bot is **not available**, you need to host him yourself.
+This bot is **not available**, the way to host him yourself is explained [here](https://github.com/Ph4ntom01/traefik-docker-ark).
